@@ -49,7 +49,7 @@ export default function Home() {
       {/* <Header /> */}
       <div className="mx-auto max-w-4xl grid grid-cols-1 gap-4 py-10 justify-items-center">
         <h1 className="text-4xl font-bold pb-20 dark:text-white">UTC Tools</h1>
-        <div className="grid grid-cols-[1fr_auto_1fr] place-items-center w-full px-4 md:px-0">
+        <div className="grid sm:grid-cols-[1fr_auto_1fr] place-items-center w-full px-4 md:px-0">
           <div className="w-full md:w-56 justify-self-end">
             <InputHiddenLabel
               label="Hello"
@@ -62,7 +62,7 @@ export default function Home() {
               setOtherValue={setDatetime}
             />
           </div>
-          <div className="px-4 font-semibold dark:text-white">or</div>
+          <div className="px-4 font-semibold dark:text-white py-2">or</div>
           <div className="w-full md:w-56 justify-self-start">
             <DateTimePicker
               value={timestamp}
