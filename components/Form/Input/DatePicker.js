@@ -1,4 +1,4 @@
-export default function CalendarPicker(props) {
+export default function DatePicker(props) {
   const handleChange = (e) => {
     console.log(e.target.value);
   };

@@ -1,16 +1,29 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import SimpleStats from 'components/Stats/SimpleStats';
 import InputHiddenLabel from 'components/Form/Input/InputHiddenLabel';
-import CalendarPicker from 'components/Form/Input/CalendarPicker';
+import DateTimePicker from 'components/Form/Input/DateTimePicker';
+
+import {
+  format,
+  getDate,
+  getHours,
+  getMinutes,
+  getMonth,
+  getSeconds,
+  getYear,
+  parseISO,
+} from 'date-fns';
 
 export default function Home() {
+  const [datetime, setDatetime] = useState(new Date().toISOString());
   const values = [
-    { key: 'Year', value: 2022 },
-    { key: 'Month', value: 9 },
-    { key: 'Day', value: 16 },
-    { key: 'Hour', value: 22 },
-    { key: 'Minute', value: 41 },
-    { key: 'Second', value: 30 },
+    { key: 'Year', value: getYear(parseISO(datetime)) },
+    { key: 'Month', value: getMonth(parseISO(datetime)) },
+    { key: 'Day', value: getDate(parseISO(datetime)) },
+    { key: 'Hour', value: getHours(parseISO(datetime)) },
+    { key: 'Minute', value: getMinutes(parseISO(datetime)) },
+    { key: 'Second', value: getSeconds(parseISO(datetime)) },
   ];
   return (
     <div className="bg-slate-100 min-h-screen">
@@ -31,11 +44,13 @@ export default function Home() {
               type="text"
               id="timestamp"
               placeholder="Enter timestamp"
+              value={datetime}
+              setValue={setDatetime}
             />
           </div>
-          <div className="px-4">OR</div>
+          <div className="px-4 font-semibold">OR</div>
           <div className="w-full md:w-56 justify-self-start">
-            <CalendarPicker />
+            <DateTimePicker value={parseISO(datetime)} setValue={setDatetime} />
           </div>
         </div>
         <SimpleStats data={values} />
