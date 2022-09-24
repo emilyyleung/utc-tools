@@ -4,12 +4,16 @@ export default function InputHiddenLabel({
   type,
   id,
   placeholder,
-  value,
+  value, // string
   setValue,
+  setOtherValue,
 }) {
   const handleChange = (e) => {
-    console.log('y', e.target.value);
     setValue(e.target.value);
+    // console.log('y', e.target.value);
+    if (new Date(e.target.value) > 0) {
+      setOtherValue(new Date(e.target.value));
+    }
   };
 
   const inputProps = {

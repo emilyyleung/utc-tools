@@ -1,9 +1,10 @@
 import { format, parseISO } from 'date-fns';
 
-export default function DateTimePicker({ value, setValue }) {
-  const pickValue = format(value, "yyyy-MM-dd'T'HH:mm");
+export default function DateTimePicker({ value, setValue, setOtherValue }) {
+  const pickValue = format(parseISO(value), "yyyy-MM-dd'T'HH:mm");
   const handleChange = (e) => {
-    setValue(parseISO(e.target.value).toISOString());
+    setValue(parseISO(e.target.value));
+    setOtherValue(parseISO(e.target.value).toISOString());
   };
   return (
     <input

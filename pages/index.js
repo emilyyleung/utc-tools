@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import SimpleStats from 'components/Stats/SimpleStats';
 import InputHiddenLabel from 'components/Form/Input/InputHiddenLabel';
@@ -12,18 +12,30 @@ import {
   getSeconds,
   getYear,
   parseISO,
-  setDate,
+  startOfToday,
 } from 'date-fns';
 
 export default function Home() {
-  const [datetime, setDatetime] = useState(new Date().toISOString());
+  const today = startOfToday();
+  const [datetime, setDatetime] = useState(today); // object
+
+  const [timestamp, setTimestamp] = useState(today.toISOString()); // string
+
+  const [timestamptz, seTimestamptz] = useState(today.toISOString());
+
+  useEffect(() => {
+    if (datetime > 0) {
+      setTimestamp(datetime.toISOString());
+    }
+  }, [datetime]);
+
   const values = [
-    { key: 'Year', value: getYear(parseISO(datetime)) },
-    { key: 'Month', value: getMonth(parseISO(datetime)) },
-    { key: 'Day', value: getDate(parseISO(datetime)) },
-    { key: 'Hour', value: getHours(parseISO(datetime)) },
-    { key: 'Minute', value: getMinutes(parseISO(datetime)) },
-    { key: 'Second', value: getSeconds(parseISO(datetime)) },
+    { key: 'Year', value: getYear(parseISO(timestamp)) },
+    { key: 'Month', value: getMonth(parseISO(timestamp)) + 1 },
+    { key: 'Day', value: getDate(parseISO(timestamp)) },
+    { key: 'Hour', value: getHours(parseISO(timestamp)) },
+    { key: 'Minute', value: getMinutes(parseISO(timestamp)) },
+    { key: 'Second', value: getSeconds(parseISO(timestamp)) },
   ];
 
   return (
@@ -45,13 +57,18 @@ export default function Home() {
               type="text"
               id="timestamp"
               placeholder="Enter timestamp"
-              value={datetime}
-              setValue={setDatetime}
+              value={timestamptz}
+              setValue={seTimestamptz}
+              setOtherValue={setDatetime}
             />
           </div>
           <div className="px-4 font-semibold dark:text-white">or</div>
           <div className="w-full md:w-56 justify-self-start">
-            <DateTimePicker value={parseISO(datetime)} setValue={setDatetime} />
+            <DateTimePicker
+              value={timestamp}
+              setValue={setDatetime}
+              setOtherValue={seTimestamptz}
+            />
           </div>
         </div>
         <SimpleStats data={values} />
