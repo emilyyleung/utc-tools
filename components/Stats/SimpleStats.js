@@ -5,12 +5,12 @@ export default function SimpleStats({ data }) {
         {data.map((item) => (
           <div
             key={item.key}
-            className="overflow-hidden rounded-lg bg-white py-2 md:py-5 shadow text-center"
+            className="overflow-hidden rounded-lg bg-white dark:bg-gray-700 py-2 md:py-5 shadow text-center"
           >
-            <dt className="truncate text-xs md:text-sm font-medium text-gray-500">
+            <dt className="truncate text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400">
               {item.key}
             </dt>
-            <dd className="mt-1 text-lg md:text-3xl font-bold tracking-tight text-gray-900">
+            <dd className="mt-1 text-lg md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
               {item.value}
             </dd>
           </div>
