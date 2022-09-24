@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import SimpleStats from 'components/Stats/SimpleStats';
 import InputHiddenLabel from 'components/Form/Input/InputHiddenLabel';
@@ -12,6 +12,7 @@ import {
   getSeconds,
   getYear,
   parseISO,
+  setDate,
 } from 'date-fns';
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
     { key: 'Minute', value: getMinutes(parseISO(datetime)) },
     { key: 'Second', value: getSeconds(parseISO(datetime)) },
   ];
+
   return (
     <div className="bg-slate-100 dark:bg-gray-800 min-h-screen">
       <Head>
